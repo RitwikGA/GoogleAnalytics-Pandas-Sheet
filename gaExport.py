@@ -7,6 +7,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 SCOPES = ['https://www.googleapis.com/auth/analytics.readonly']
 KEY_FILE_LOCATION = 'client_secrets.json'
 VIEW_ID = ''
+SHEET_ID = ''
 
 # For the full list of dimensions & metrics, check https://developers.google.com/analytics/devguides/reporting/core/dimsmets
 DIMENSIONS = ['ga:source','ga:medium']
@@ -66,7 +67,7 @@ def convert_to_dataframe(response):
  
 def export_to_sheets(df):
     gc = pygsheets.authorize(service_file='client_secrets.json')
-    sht = gc.open_by_key('1nI-OAypBe4vnnW2I8IuduxpyBZMfznc7RnGFUUNLatw')
+    sht = gc.open_by_key(SHEET_ID)
     wks = sht.worksheet_by_title('Sheet1')
     wks.set_dataframe(df,'A1')
 
